@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Previous Articles</li>
+    </ol>
+  </nav>
+
+{% for article in articles %}
+  <h1 class="mt-4">{{article.title}}</h1>
+  <p>{{article.date}}</p>
+  <a href="#{{article.img_modal_id}}" data-toggle="modal" data-target="#{{article.img_modal_id}}"><img src="{{article.img_hotlink}}" class="shadow rounded float-left mr-4" alt="{{article.img_alt}}" data-toggle="tooltip" data-placement="bottom" title="{{article.img_alt}}"></a>
+  <p class="lead">{{article.text}} <a href="{{article.url}}" target="_blank">Read more about {{article.title}} on Wikipedia</a><p>
+  <div class="border border-info p-3 text-center z-index-1000">
+    <p>The encrypted version of this article's title is shown below. Can you guess its encryption method? Click on the encrypted title to see if you're right.</p>
+    <h6 class="text-break my-2"><mark><a href="#answer-modal" class="text-decoration-none text-reset" data-toggle="modal" data-target="#answer-modal">{{article.encrypted_title}}</a></mark></h6>
+  </div>
+
+  <!-- Start featured image modal dialog -->
+  <div class="modal fade" id="{{article.img_modal_id}}" tabindex="-1" role="dialog" aria-labelledby="{{article.img_modal_id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered text-center modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="image-modal-title">{{article.img_alt}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img class="w-100" src="{{article.img_hotlink_full}}" alt="{{article.img_alt}}">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End featured image modal dialog -->
+
+  <!-- Start encrypted title modal dialog -->
+  <div class="modal fade" id="answer-modal" tabindex="-1" role="dialog" aria-labelledby="answer-modal" aria-hidden="true" id="answer-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="answer-modal-title">Answer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>The title was encrypted with the <a href="https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher" class="tooltip-test" title="Click to learn more" target="_blank">Vigenère cipher</a>.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End encrypted title modal dialog -->
+  <hr/>
+{% endfor %}
+
+</div>
+{% endblock %}

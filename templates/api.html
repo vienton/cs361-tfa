@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">API Reference</li>
+    </ol>
+  </nav>
+  <h1 class="mt-4 text-center">Wikipedia Today’s Featured Article API Reference</h1>
+  <p class="lead">This API enables you to retrieve articles have had distracting elements removed, providing you or the users of your app a clean reading experience. Give it a try!</p>
+  <p class="text-right">Last Updated: May 8, 2021</p>
+  <p class="text-right">Author: Vien Ton</p>
+  <h2>Data Model</h2>
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Property Name</th>
+          <th scope="col">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>title</td>
+          <td>String. Title of Today’s Featured Article.</td>
+        </tr>
+        <tr>
+          <td>date</td>
+          <td>String. Publication date.</td>
+        </tr>
+        <tr>
+          <td>img_url</td>
+          <td>String. URL to the direct location of the TFA image.</td>
+        </tr>
+        <tr>
+          <td>img_hotlink</td>
+          <td>String. URL to the location of the TFA image if hotlinking.</td>
+        </tr>
+        <tr>
+          <td>img_alt</td>
+          <td>String. Alternate text for the image if the image cannot be displayed.</td>
+        </tr>
+        <tr>
+          <td>text</td>
+          <td>String. Text of Today’s Featured Article with all links removed.</td>
+        </tr>
+        <tr>
+          <td>url</td>
+          <td>String. URL of the location of Today’s Featured Article.</td>
+        </tr>
+      </tbody>
+  </table>
+  <hr/>
+  <h2>View an Article</h2>
+  <p>Allows you to get Today’s Featured Article in the JSON format.</p>
+  <pre><code>GET /api/article</code></pre>
+  <h3>Request</h3>
+  <h4>Path Parameters</h4>
+  <p>None</p>
+  <h4>Request Headers</h4>
+  <p>Accept: application/json</p>
+  <h4>Request Body</h4>
+  <p>None</p>
+  <h3>Response</h3>
+  <h4>Headers</h4>
+  <p>Content-Type: application/json</p>
+  <h4>Response Body Format</h4>
+  <p>Success: JSON</p>
+  <p>Failure: None</p>
+  <h4>Response Statuses</h4>
+  <table class="table table-bordered">
+      <thead>
+      <tr>
+          <th scope="col">Outcome</th>
+          <th scope="col">Status Code</th>
+          <th scope="col">Notes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td>Success</td>
+          <td>200 OK</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Failure</td>
+          <td>404 Not Found</td>
+          <td>No article exists</td>
+      </tr>
+      </tbody>
+  </table>
+  <h4>Response Examples</h4>
+  <h5>Success</h5>
+  <pre><code>
+  Status: 200 OK
+  {
+      "title": " 2020 World Snooker Championship",
+      "date": "Mon, 03 May 2021",            
+      "img_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Ronnie_O%E2%80%99Sullivan_at_Snooker_German_Masters
+                  _%28DerHexer%29_2015-02-06_07.jpg",
+      "img_hotlink": "https://en.wikipedia.org/wiki/File:Ronnie_O%E2%80%99Sullivan_at_Snooker_German_Masters_(DerHexer)_
+                      2015-02-06_07.jpg",
+      "img_alt": "Ronnie O’Sullivan",
+      "text": "The 2020 World Snooker Championship was a professional snooker tournament held from 31 July to 16 August 
+              2020 at the Crucible Theatre in Sheffield. It was originally scheduled to take place from 18 April to 4 May, 
+              but qualification and the main rounds were postponed due to the COVID-19 pandemic in the United Kingdom. 
+              The event was intended to allow limited live audiences, but apart from the first day and the final it was 
+              played behind closed doors. The tournament was organised by the World Snooker Tour, broadcast by the BBC, 
+              Eurosport and Matchroom Sport, and sponsored by sports betting company Betfred. It had a total prize fund 
+              of £2,395,000, with the winner receiving £500,000. The delayed qualifying rounds took place from 21 to 28 
+              July, involving 128 professional and invited amateur participants. The top 16 reached the main stage of the 
+              tournament where they played the top 16 ranked players. Judd Trump, the defending champion, lost in the 
+              quarter-final stage to Kyren Wilson. Ronnie O'Sullivan (pictured) won his sixth world title, defeating Wilson 
+              18–8 in the final.",
+      "url": "https://cs361-wiki-tfa.wm.r.appspot.com"
+  }            
+  </code></pre>
+  <h5>Failure</h5>
+  <pre><code>Status: 404 Not Found</code></pre>
+  <hr>
+  <h2>View Historical Articles</h2>
+  <p>Allows you to get all available historical Today’s Featured Article in the JSON format. Limit 10 articles per response.</p>
+  <pre><code>GET /api/articles</code></pre>
+  <h3>Request</h3>
+  <h4>Path Parameters</h4>
+  <p>None</p>
+  <h4>Request Headers</h4>
+  <p>Accept: application/json</p>
+  <h4>Request Body</h4>
+  <p>None</p>
+  <h3>Response</h3>
+  <h4>Headers</h4>
+  <p>Content-Type: application/json</p>
+  <h4>Response Body Format</h4>
+  <p>Success: JSON</p>
+  <p>Failure: None</p>
+  <h4>Response Statuses</h4>
+  <table class="table table-bordered">
+      <thead>
+      <tr>
+          <th scope="col">Outcome</th>
+          <th scope="col">Status Code</th>
+          <th scope="col">Notes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td>Success</td>
+          <td>200 OK</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Failure</td>
+          <td>404 Not Found</td>
+          <td>No article exists</td>
+      </tr>
+      </tbody>
+  </table>
+  <h4>Response Examples</h4>
+  <h5>Success</h5>
+  <pre><code>
+  Status: 200 OK
+  [
+  {
+      "title": "2020 World Snooker Championship",
+      "date": "Mon, 03 May 2021",            
+      "img_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Ronnie_O%E2%80%99Sullivan_at_Snooker_German_Masters
+                  _%28DerHexer%29_2015-02-06_07.jpg",
+      "img_hotlink": "https://en.wikipedia.org/wiki/File:Ronnie_O%E2%80%99Sullivan_at_Snooker_German_Masters_(DerHexer)_
+                      2015-02-06_07.jpg",        
+      "img_alt": "Ronnie O’Sullivan",    
+      "text": "The 2020 World Snooker Championship was a professional snooker tournament held from 31 July to 16 August 
+              2020 at the Crucible Theatre in Sheffield. It was originally scheduled to take place from 18 April to 4 May, 
+              but qualification and the main rounds were postponed due to the COVID-19 pandemic in the United Kingdom. 
+              The event was intended to allow limited live audiences, but apart from the first day and the final it was 
+              played behind closed doors. The tournament was organised by the World Snooker Tour, broadcast by the BBC, 
+              Eurosport and Matchroom Sport, and sponsored by sports betting company Betfred. It had a total prize fund 
+              of £2,395,000, with the winner receiving £500,000. The delayed qualifying rounds took place from 21 to 28 
+              July, involving 128 professional and invited amateur participants. The top 16 reached the main stage of the 
+              tournament where they played the top 16 ranked players. Judd Trump, the defending champion, lost in the 
+              quarter-final stage to Kyren Wilson. Ronnie O'Sullivan (pictured) won his sixth world title, defeating Wilson 
+              18–8 in the final.",
+      "url": "https://en.wikipedia.org/wiki/2020_World_Snooker_Championship"
+  },
+  {
+      "title": "William Feiner",
+      "date": "Tue, 04 May 2021",            
+      "img_url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Rev._William_Feiner_SJ.jpg",
+      "img_hotlink": "https://en.wikipedia.org/wiki/File:Rev._William_Feiner_SJ.jpg",
+      "img_alt": "William Feiner",            
+      "text": "William Feiner (1792–1829) was a German Catholic priest and Jesuit who became a missionary to the United 
+              States and eventually the president of Georgetown College. Born in Münster, he taught in Jesuit schools in 
+              the Russian Empire and Polish Galicia as a young member of the Society of Jesus. He then emigrated to the 
+              United States several years after the restoration of the Society, taking up pastoral work and teaching 
+              theology in Conewago, Pennsylvania, before becoming a full-time professor at Georgetown College. There, he 
+              also became the second dedicated librarian of the college's library. Eventually, Feiner became the president 
+              of Georgetown in 1826. While president, he taught theology at Georgetown and led the congregation at Holy 
+              Trinity Church. Despite being the leader of an American university, he never mastered the English language. 
+              Long plagued by poor health due to tuberculosis, his short-lived presidency ended after three years, just 
+              weeks before his death.",
+      "url": "https://en.wikipedia.org/wiki/William_Feiner"
+  }
+  ]
+  </code></pre>
+  <h5>Failure</h5>
+  <pre><code>Status: 404 Not Found</code></pre>
+</div>
+{% endblock %}
